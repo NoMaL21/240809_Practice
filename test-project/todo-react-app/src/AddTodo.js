@@ -46,6 +46,7 @@ class AddTodo extends React.Component{
                         variant="outlined"
                         onClick={this.onButtonClick}
                         >
+                            +
                         </Button>
                     </Grid>
                 </Grid>
