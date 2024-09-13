@@ -5,7 +5,7 @@ export function call(api, method, request){
         headers: new Headers({
             "Content-Type":"application/json",
         }),
-        url:API_BASE_URL + api,
+        url: API_BASE_URL + api,
         method: method,
     };
 
@@ -20,5 +20,12 @@ export function call(api, method, request){
         }
         return json;
     })
-    );
+    )
+    .catch((error) => {
+        console.log(error.status);
+        if(error.status === 403){
+            window.location.href = "/login";
+        }
+        return Promise.reject(error);
+    });
 }
