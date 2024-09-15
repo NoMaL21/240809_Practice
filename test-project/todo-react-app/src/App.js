@@ -32,7 +32,7 @@ class App extends React.Component {
     }
 
     componentDidMount(){
-        call("/todo","GET",null),then((response)=>
+        call("/todo","GET",null).then((response)=>
             this.setState({items:response.data})
         );
     }
