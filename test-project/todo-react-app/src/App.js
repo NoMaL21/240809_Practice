@@ -10,6 +10,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			items: [],
+			loading:true,
 		};
 	}
 
@@ -33,7 +34,7 @@ class App extends React.Component {
 
     componentDidMount(){
         call("/todo","GET",null).then((response)=>
-            this.setState({items:response.data})
+            this.setState({items:response.data, loading:false})
         );
     }
 
@@ -48,7 +49,7 @@ class App extends React.Component {
 			</Paper>
 		)
 
-		return (
+		var todoListPage = (
 		<div className="App">
 			<Container maxWidth="md">
 				<AddTodo add={this.add}/>
