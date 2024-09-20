@@ -1,9 +1,9 @@
 import React from 'react';
 import Todo from './Todo';
 import AddTodo from './AddTodo';
-import { Paper, List,Container } from '@mui/material';
+import { Paper, List, Container, Grid, Button, AppBar, Toolbar, Typography } from '@mui/material';
 import './App.css';
-import {call} from './service/ApiService';
+import {call, signout} from './service/ApiService';
 
 class App extends React.Component {
 	constructor(props) {
@@ -47,16 +47,47 @@ class App extends React.Component {
 					))}
 				</List>
 			</Paper>
-		)
+		);
+
+		var navigationBar = (
+			<AppBar position="static">
+				<ToolBar>
+					<Grid justify="space-between" container>
+						<Grid item>
+							<Typography variant="h6">오늘의 할일(TodoList)</Typography>
+						</Grid>
+						<Grid item>
+							<Button color="inherit" onClick={signout}>로그아웃</Button>
+						</Grid>
+					</Grid>
+				</ToolBar>
+			</AppBar>
+		);
 
 		var todoListPage = (
-		<div className="App">
+		<div>
+			{navigationBar}
 			<Container maxWidth="md">
 				<AddTodo add={this.add}/>
 				<div className="TodoList">{todoItems}</div>
 			</Container>
 		</div>
 		);
+
+		//로딩 중일 때 표시
+		var loadingPage = <h1>로딩 중 .. </h1>
+		var content = loadingPage;
+
+		if(!this.state.loading){
+			content = todoListPage;
+		}
+
+		return (
+			<div className='App'>
+				{content}
+			</div>
+		);
+
 	}
 }
 
