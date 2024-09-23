@@ -1,5 +1,5 @@
 import  React from "react";
-import { Paper, List, Container, Grid, Button, AppBar, Toolbar, Typography } from '@mui/material';
+import { Container, Grid, Button, TextField, Link, Typography } from '@mui/material';
 
 import { signup } from "./service/ApiService";
 
@@ -7,7 +7,7 @@ import { signup } from "./service/ApiService";
 class SignUp extends React.Component {
     constructor(props) {
         super(props);
-        this.handle.Submit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event){
