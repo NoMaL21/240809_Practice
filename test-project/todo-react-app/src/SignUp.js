@@ -50,7 +50,7 @@ class SignUp extends React.Component {
                     <Grid item xs = {12}>
                         <TextField
                             autoComplete="email"
-                            name = "emaile"
+                            name = "email"
                             varian="outlined"
                             required
                             fullWidth

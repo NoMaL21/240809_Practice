@@ -29,7 +29,7 @@ class Login extends React.Component {
                     <Grid container spacing={2}>
                         <Grid item xs = {12}>
                             <TextField
-                                varian="outlined"
+                                variant="outlined"
                                 required
                                 fullWidth
                                 id="email"
@@ -40,19 +40,21 @@ class Login extends React.Component {
                         </Grid>
                         <Grid item xs = {12}>
                             <TextField
-                                varian="outlined"
+                                variant="outlined"
                                 required
                                 fullWidth
                                 id="password"
                                 label="비밀번호"
                                 name = "password"
                                 autoComplete="password"
+                                //type="password"
                                 />
                         </Grid>
                         <Grid item xs = {12}>
                             <Button
                             type="submit"
-                            fullWidthvariant="contained"
+                            fullWidth
+                            variant="contained"
                             color="primary"
                             >
                             로그인
