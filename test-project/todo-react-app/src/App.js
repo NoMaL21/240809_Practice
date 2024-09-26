@@ -4,6 +4,7 @@ import AddTodo from './AddTodo';
 import { Paper, List, Container, Grid, Button, AppBar, Toolbar, Typography } from '@mui/material';
 import './App.css';
 import {call, signout} from './service/ApiService';
+import { Link } from 'react-router-dom'; // react-router-dom에서 Link 가져오기
 
 class App extends React.Component {
 	constructor(props) {
@@ -54,7 +55,10 @@ class App extends React.Component {
 				<Toolbar>
 					<Grid justify="space-between" container>
 						<Grid item>
-							<Typography variant="h6">오늘의 할일(TodoList)</Typography>
+							<Typography variant="h6">인스타 게시글을 카카오톡으로</Typography>
+						</Grid>
+						<Grid item>
+							<Button component={Link} to="/mypage" color="inherit">마이페이지</Button>
 						</Grid>
 						<Grid item>
 							<Button color="inherit" onClick={signout}>로그아웃</Button>
