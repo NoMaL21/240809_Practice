@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Grid, Typography, Table, TableBody, TableCell, TableContainer, TableRow, Paper, Link } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check'; // 체크표시 아이콘
 import ClearIcon from '@mui/icons-material/Clear'; // X표시 아이콘
+import { kakaoauthcode } from './service/ApiService';
 
 const kakao_client_id = process.env.REACT_APP_KAKAO_CLIENT_ID;
 
@@ -15,9 +16,28 @@ class Mypage extends React.Component {
         };
     }
 
+    componentDidMount() {
+        // 현재 URL에서 code 파라미터 추출
+        const urlParams = new URLSearchParams(window.location.search);
+        const authCode = urlParams.get('code');
+
+        if (authCode) {
+            // 카카오 인증 코드가 있으면 백엔드로 전송
+            kakaoauthcode(authCode)
+                .then(() => {
+                    // 인증 성공 시 kakaoauth를 true로 변경
+                    this.setState({ kakaoauth: true });
+                })
+                .catch(() => {
+                    // 인증 실패 시 kakaoauth를 false로 유지
+                    this.setState({ kakaoauth: false });
+                });
+        }
+    }
+
     render(){
         const { username, email, kakaoauth } = this.state;
-        const kakaoredirectUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao_client_id}&redirect_uri=http://localhost:3000/&response_type=code&scope=profile_nickname,friends,talk_message`;
+        const kakaoredirectUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao_client_id}&redirect_uri=http://localhost:3000/mypage&response_type=code&scope=profile_nickname,friends,talk_message`;
 
         return (
             <Container component="main" maxWidth="sm" style={{ marginTop: "8%" }}>

@@ -38,7 +38,7 @@ export function call(api, method, request){
         console.log("ERROR OCCURRED : ");
         console.log(error.status);
         if(error.status === 403){
-            window.location.href = "/login";
+            //window.location.href = "/login";
         }
         return Promise.reject(error);
     });
@@ -81,4 +81,19 @@ export function signout(){
     //local 스토리지에 토큰 삭제
     localStorage.setItem(ACCESS_TOKEN,null);
     window.location.href="/";
+}
+
+// 카카오 인증 처리 메소드 kakaoauthcode
+export function kakaoauthcode(authCode) {
+    // POST 요청을 보내면서 call 함수 사용
+    return call("/auth/kakao/callback", "POST", { code: authCode })
+    .then((response) => {
+        // JWT 토큰을 받아서 localStorage에 저장
+        if (response.token) {
+            localStorage.setItem(ACCESS_TOKEN, response.token);
+        }
+    })
+    .catch((error) => {
+        console.log("카카오 인증 실패:", error);
+    });
 }
