@@ -38,7 +38,7 @@ export function call(api, method, request){
         console.log("ERROR OCCURRED : ");
         console.log(error.status);
         if(error.status === 403){
-            //window.location.href = "/login";
+            window.location.href = "/login";
         }
         return Promise.reject(error);
     });
@@ -84,9 +84,37 @@ export function signout(){
 }
 
 // 카카오 인증 처리 메소드 kakaoauthcode
+/*
+export function kakaoauthcode(authCode) {
+    return fetch(`${API_BASE_URL}/auth/kakao/callback`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ code: authCode })
+    })
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            return Promise.reject(response);
+        }
+    })
+    .then((data) => {
+        // JWT 토큰을 받아서 localStorage에 저장
+        if (data.token) {
+            localStorage.setItem(ACCESS_TOKEN, data.token);
+        }
+    })
+    .catch((error) => {
+        console.log("카카오 인증 실패:", error);
+    });
+}*/
+
+// 카카오 인증 처리 메소드 kakaoauthcode
 export function kakaoauthcode(authCode) {
     // POST 요청을 보내면서 call 함수 사용
-    return call("/auth/kakao/callback", "POST", { code: authCode })
+    return call("/auth/kakao", "POST", { "kakaoauthtoken" : authCode })
     .then((response) => {
         // JWT 토큰을 받아서 localStorage에 저장
         if (response.token) {
@@ -96,4 +124,8 @@ export function kakaoauthcode(authCode) {
     .catch((error) => {
         console.log("카카오 인증 실패:", error);
     });
+}
+
+export function userstatus() {
+    return call("/userstatus", "GET", null); // GET 요청으로 유저 상태 받아옴
 }
