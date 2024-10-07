@@ -9,6 +9,7 @@ class AddTodo extends React.Component {
         title: "",
         target_name: "",
         executionTime: "",
+        state:"PENDING",
       },
     };
     this.add = props.add;
@@ -27,6 +28,7 @@ class AddTodo extends React.Component {
         title: "",
         target_name: "",
         executionTime: "",
+        state:"PENDING",
       },
     });
   };

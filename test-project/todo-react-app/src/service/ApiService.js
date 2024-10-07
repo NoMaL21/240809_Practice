@@ -127,5 +127,5 @@ export function kakaoauthcode(authCode) {
 }
 
 export function userstatus() {
-    return call("/userstatus", "GET", null); // GET 요청으로 유저 상태 받아옴
+    return call("/auth/userstatus", "GET", null); // GET 요청으로 유저 상태 받아옴
 }

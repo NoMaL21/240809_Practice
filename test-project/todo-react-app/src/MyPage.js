@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Grid, Typography, Table, TableBody, TableCell, TableContainer, TableRow, Paper, Link } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check'; // 체크표시 아이콘
 import ClearIcon from '@mui/icons-material/Clear'; // X표시 아이콘
-import { userstatus } from './service/ApiService'; // userstatus 메소드 사용
+import { kakaoauthcode, userstatus } from './service/ApiService'; // kakaoauthcode 추가
 
 const kakao_client_id = process.env.REACT_APP_KAKAO_CLIENT_ID;
 
@@ -20,7 +20,6 @@ class Mypage extends React.Component {
         // 유저 상태를 서버로부터 받아옴
         userstatus()
             .then((response) => {
-                // 서버에서 받은 username, email, kakaoauth 값으로 state 업데이트
                 this.setState({
                     username: response.username,
                     email: response.email,
@@ -30,6 +29,23 @@ class Mypage extends React.Component {
             .catch((error) => {
                 console.log("유저 상태 로딩 실패:", error);
             });
+
+        // 현재 URL에서 code 파라미터 추출
+        const urlParams = new URLSearchParams(window.location.search);
+        const authCode = urlParams.get('code');
+        
+        if (authCode) {
+            // 카카오 인증 코드가 있으면 백엔드로 전송
+            kakaoauthcode(authCode)
+                .then(() => {
+                    // 인증 성공 시 kakaoauth를 true로 변경
+                    this.setState({ kakaoauth: true });
+                })
+                .catch(() => {
+                    // 인증 실패 시 kakaoauth를 false로 유지
+                    this.setState({ kakaoauth: false });
+                });
+        }
     }
 
     render(){
