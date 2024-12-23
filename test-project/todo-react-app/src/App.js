@@ -81,8 +81,9 @@ class App extends React.Component {
 		);
 
 		//로딩 중일 때 표시
-		var loadingPage = <h1>로딩 중 .. </h1>
+		var loadingPage = <h1>로딩 중 ... </h1>
 		var content = loadingPage;
+		
 
 		if(!this.state.loading){
 			content = todoListPage;
